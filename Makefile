@@ -14,8 +14,8 @@ endif
 
 PACKAGE_CLOUD ?= ayufan/gitlab-ci-multi-runner
 PACKAGE_CLOUD_URL ?= https://packagecloud.io/
-BUILD_ARCHS ?= -arch '386' -arch 'arm' -arch 'amd64' -arch 'arm64' -arch 's390x'
-BUILD_PLATFORMS ?= -osarch 'darwin/amd64' -os 'linux' -os 'freebsd' -os 'windows' ${BUILD_ARCHS}
+BUILD_ARCHS ?= -arch 'loong64'
+BUILD_PLATFORMS ?= -osarch 'linux/loong64'
 S3_UPLOAD_PATH ?= master
 
 # Keep in sync with docs/install/linux-repository.md
@@ -360,7 +360,7 @@ $(GOCOVER_COBERTURA):
 	go get github.com/boumenot/gocover-cobertura
 
 $(GOX):
-	go get github.com/mitchellh/gox
+	@echo "skip download gox"
 
 $(GOLANGLINT): TOOL_BUILD_DIR := .tmp/build/golangci-lint
 $(GOLANGLINT): $(GOLANGLINT_GOARGS)
