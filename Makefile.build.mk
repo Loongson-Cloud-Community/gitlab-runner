@@ -6,7 +6,7 @@ runner-bin: $(GOX)
 		   $(PKG)
 
 runner-bin-host: OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
-runner-bin-host: ARCH := $(shell uname -m | sed s/x86_64/amd64/ | sed s/i386/386/)
+runner-bin-host: ARCH := $(shell uname -m | sed s/x86_64/amd64/ | sed s/i386/386/ | sed s/loongarch64/loong64/)
 runner-bin-host:
 	# Building $(NAME) in version $(VERSION) for host platform
 	$(MAKE) runner-bin BUILD_PLATFORMS="-osarch=$(OS)/$(ARCH)"
