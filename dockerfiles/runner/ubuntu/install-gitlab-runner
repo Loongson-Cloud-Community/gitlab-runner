@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-set -eEo pipefail
+set -ev
 
-ARCH="$1"
+curl -L -o /usr/bin/gitlab-runner-linux-loong64 https://github.com/Loongson-Cloud-Community/gitlab-runner/releases/download/v13.11.0/gitlab-runner-linux-loong64
 
-dpkg -i "/tmp/gitlab-runner_${ARCH}.deb"
-apt-get update
-apt-get -f install -y
-rm -rf /var/lib/apt/lists/*
-rm "/tmp/gitlab-runner_${ARCH}.deb"
-# TODO: Remove in 14.0 https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4845
-rm "/home/gitlab-runner/.bash_logout"
+mv "/usr/bin/gitlab-runner-linux-loong64" /usr/bin/gitlab-runner
+
+chmod +x /usr/bin/gitlab-runner
+ln -s /usr/bin/gitlab-runner /usr/bin/gitlab-ci-multi-runner

@@ -1,6 +1,4 @@
-FROM ubuntu:20.04
-
-ARG TARGETPLATFORM
+FROM cr.loongnix.cn/library/debian:buster
 
 ENV DEBIAN_FRONTEND=noninteractive
 # hadolint ignore=DL3008
@@ -15,12 +13,9 @@ RUN apt-get update -y && \
         openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
-ARG DOCKER_MACHINE_VERSION
-ARG DUMB_INIT_VERSION
-ARG GIT_LFS_VERSION
 
-COPY gitlab-runner_*.deb checksums-* install-deps install-gitlab-runner /tmp/
-RUN /tmp/install-deps "${TARGETPLATFORM}" "${DOCKER_MACHINE_VERSION}" "${DUMB_INIT_VERSION}" "${GIT_LFS_VERSION}"
+COPY install-deps install-gitlab-runner /tmp/
+RUN /tmp/install-deps
 
 COPY entrypoint /
 RUN chmod +x /entrypoint
